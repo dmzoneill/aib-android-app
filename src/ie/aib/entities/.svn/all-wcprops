@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/aibbanking/!svn/ver/1/AIB/src/ie/aib/entities
+END
+Payee.java
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/aibbanking/!svn/ver/1/AIB/src/ie/aib/entities/Payee.java
+END
+StandingOrder.java
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/aibbanking/!svn/ver/1/AIB/src/ie/aib/entities/StandingOrder.java
+END
+Person.java
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/aibbanking/!svn/ver/1/AIB/src/ie/aib/entities/Person.java
+END
+Account.java
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/aibbanking/!svn/ver/1/AIB/src/ie/aib/entities/Account.java
+END

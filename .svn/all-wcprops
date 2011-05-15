@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 26
+/aibbanking/!svn/ver/1/AIB
+END
+default.properties
+K 25
+svn:wc:ra_dav:version-url
+V 45
+/aibbanking/!svn/ver/1/AIB/default.properties
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/aibbanking/!svn/ver/1/AIB/.classpath
+END
+proguard.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/aibbanking/!svn/ver/1/AIB/proguard.cfg
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/aibbanking/!svn/ver/1/AIB/.project
+END
+AndroidManifest.xml
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/aibbanking/!svn/ver/1/AIB/AndroidManifest.xml
+END

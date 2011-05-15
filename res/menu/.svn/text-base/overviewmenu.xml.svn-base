@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/quickPay" android:title="Hide quick pay" android:icon="@android:drawable/ic_menu_view"/>
+	<item android:id="@+id/transfers" android:title="Transfers &amp; Payments" android:icon="@android:drawable/ic_menu_set_as">
+		<menu>
+			<item android:id="@+id/makePayment" android:title="Make a payment" android:icon="@android:drawable/ic_menu_save"/>
+			<item android:id="@+id/paymentLog" android:title="Payment log" android:icon="@android:drawable/ic_menu_save"/>
+			<item android:id="@+id/managePayees" android:title="Manage payees" android:icon="@android:drawable/ic_menu_save"/>
+			<item android:id="@+id/standingOrders" android:title="Standing orders" android:icon="@android:drawable/ic_menu_save"/>
+		</menu>
+	</item>
+	<item android:id="@+id/mobileTopup" android:title="Mobile topup" android:icon="@android:drawable/ic_menu_call"/>
+	<item android:id="@+id/logout" android:title="Logout" android:icon="@android:drawable/ic_lock_power_off"/>
+</menu>

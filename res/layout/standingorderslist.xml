@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/standingordersLayout" 
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+>
+
+	<LinearLayout 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+	>
+	
+		<TextView 
+			android:text="" 
+			android:id="@+id/standingordersReceiver"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="9pt"
+			android:layout_weight="1"
+			android:layout_marginLeft="10px"
+		/>	
+		
+		<TextView 
+			android:text="" 
+			android:id="@+id/standingordersNextAmount"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="7pt"		
+			android:layout_weight="1"
+			android:gravity="right"
+			android:layout_gravity="center_vertical"
+			android:layout_marginRight="10px" 
+		/>
+			
+	</LinearLayout>			
+		
+	<LinearLayout 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:id="@+id/payeeRowAccount1"	
+	>
+	
+		<TextView 
+			android:text="From account" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="6pt"	
+			android:layout_marginLeft="10px" 
+		/>	
+	
+		<TextView 
+			android:text="" 
+			android:id="@+id/standingordersFromAccount"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="7pt"		
+			android:layout_marginLeft="10px" 
+			android:textStyle="bold"
+		/>					
+			
+	</LinearLayout>
+	
+	<LinearLayout 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:id="@+id/payeeRowAccount2"	
+	>
+	
+		<TextView 
+			android:text="Frequency" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="6pt"	
+			android:layout_marginLeft="10px" 
+		/>	
+		
+		<TextView 
+			android:text="" 
+			android:id="@+id/standingordersFrequency"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="7pt"		
+			android:textStyle="bold"
+			android:layout_marginLeft="10px"  
+		/>			
+			
+	</LinearLayout>
+		
+	<LinearLayout 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:id="@+id/payeeRowReference"
+	>			
+	
+		<TextView 
+			android:text="ReferNext Dateence" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="6pt"	
+			android:layout_marginLeft="10px" 
+		/>	
+		
+		<TextView 
+			android:text="" 
+			android:id="@+id/standingordersNextDate"
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content"			
+			android:textSize="7pt"		
+			android:textStyle="bold"
+			android:layout_marginLeft="10px" 
+		/>		
+			
+	</LinearLayout>
+	
+	<LinearLayout 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:id="@+id/standingOrderRowOptions"
+	>			
+		
+		<Button 
+			android:id="@+id/standingordersAmendButton" 
+			android:text="Amend" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:layout_marginBottom="5dp" 
+			android:layout_marginTop="5dp"
+			android:layout_marginLeft="10px" 
+			android:maxWidth="180dp" 
+			android:textSize="7pt"
+			android:layout_gravity="center"
+			android:clickable="true"
+			android:enabled="false"	
+		/>
+		
+		<Button 
+			android:id="@+id/standingordersCancelButton" 
+			android:text="Cancel" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:layout_marginBottom="5dp" 
+			android:layout_marginTop="5dp"
+			android:layout_marginLeft="10px" 
+			android:maxWidth="180dp" 
+			android:textSize="7pt"
+			android:layout_gravity="center"
+			android:clickable="true"
+			android:enabled="false"	
+		/>
+		
+		<Button 
+			android:id="@+id/standingordersMoreInfoButton" 
+			android:text="More info" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:layout_marginBottom="5dp" 
+			android:layout_marginTop="5dp"
+			android:layout_marginLeft="10px" 
+			android:maxWidth="180dp" 
+			android:textSize="7pt"
+			android:layout_gravity="center"
+			android:clickable="true"
+			android:enabled="false"	
+		/>	
+			
+	</LinearLayout>
+	
+
+</LinearLayout>
+

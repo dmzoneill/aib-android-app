@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string-array name="payment_types">
+		<item>Select payment type</item>
+        <item>Pay a bill</item>
+        <item>Pay a beneficiary</item>
+        <item>Transfer to my accounts</item>
+    </string-array>
+
+</resources>

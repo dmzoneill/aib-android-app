@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/aibbanking/!svn/ver/1/AIB/res/menu
+END
+paymentslogmenu.xml
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/aibbanking/!svn/ver/1/AIB/res/menu/paymentslogmenu.xml
+END
+payeemenu.xml
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/aibbanking/!svn/ver/1/AIB/res/menu/payeemenu.xml
+END
+standingordermenu.xml
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/aibbanking/!svn/ver/1/AIB/res/menu/standingordermenu.xml
+END
+statementmenu.xml
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/aibbanking/!svn/ver/1/AIB/res/menu/statementmenu.xml
+END
+overviewmenu.xml
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/aibbanking/!svn/ver/1/AIB/res/menu/overviewmenu.xml
+END
+paymentoptionsmenu.xml
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/aibbanking/!svn/ver/1/AIB/res/menu/paymentoptionsmenu.xml
+END

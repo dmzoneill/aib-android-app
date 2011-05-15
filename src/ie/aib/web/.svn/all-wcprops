@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/aibbanking/!svn/ver/1/AIB/src/ie/aib/web
+END
+EasySSLSocketFactory.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/aibbanking/!svn/ver/1/AIB/src/ie/aib/web/EasySSLSocketFactory.java
+END
+EasyX509TrustManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/aibbanking/!svn/ver/1/AIB/src/ie/aib/web/EasyX509TrustManager.java
+END
+WebHelper.java
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/aibbanking/!svn/ver/1/AIB/src/ie/aib/web/WebHelper.java
+END

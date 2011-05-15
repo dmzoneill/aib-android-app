@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg"
+    android:layout_margin="0px"
+    android:padding="0px"
+    android:layout_gravity="center_vertical"
+    android:gravity="center_vertical"
+>  
+	
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:orientation="vertical"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center_vertical"
+	> 
+      
+		<ImageView 
+			android:src="@drawable/aiblogo" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:maxWidth="120dp" 
+			android:adjustViewBounds="true" 
+			android:scaleType="centerInside" 
+			android:layout_marginTop="10dp" 
+			android:layout_gravity="center"
+		/>
+		
+		<TextView 
+			android:text="Please enter your eight\ndigit registration number" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:textStyle="bold" 
+			android:textColor="#FFFFFFFF"
+			android:layout_marginTop="10dp" 
+			android:maxWidth="180dp" 	
+			android:width="180dp"
+			android:layout_gravity="center"
+			android:gravity="center"
+		/>
+		
+		<EditText
+			android:id="@+id/registrationNumber"	
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:layout_marginTop="10dp" 
+			android:maxWidth="180dp" 	
+			android:width="180dp"
+			android:layout_gravity="center"
+			android:gravity="center"
+			android:inputType="number"
+		/>
+		
+		<Button 
+			android:id="@+id/loginButton" 
+			android:text="Next" 
+			android:layout_width="wrap_content" 
+			android:layout_height="wrap_content" 
+			android:layout_marginTop="10dp" 
+			android:maxWidth="180dp" 	
+			android:width="180dp"
+			android:onClick="onClick"
+			android:layout_gravity="center"
+		/>
+	  	
+	</LinearLayout>
+
+</LinearLayout>

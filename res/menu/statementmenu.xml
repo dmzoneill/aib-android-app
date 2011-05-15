@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+	<item android:id="@+id/statementSave" android:title="Save" android:icon="@android:drawable/ic_menu_save"/>
+	<item android:id="@+id/statementSend" android:title="Send" android:icon="@android:drawable/ic_menu_share"/>
+	<item android:id="@+id/statementRefresh" android:title="Refresh" android:icon="@android:drawable/ic_menu_rotate"/>
+	<item android:id="@+id/statementHideDebits" android:title="Hide Debits" android:icon="@android:drawable/ic_menu_view"/>
+	<item android:id="@+id/statementHideDeposits" android:title="Hide Deposits" android:icon="@android:drawable/ic_menu_view"/>
+	<item android:id="@+id/statementHideOther" android:title="Hide Other" android:icon="@android:drawable/ic_menu_view"/>
+      
+</menu>

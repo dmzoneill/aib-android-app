@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World!</string>
+    <string name="app_name">A.I.B</string>
+    <string name="payment_type">Payment type</string>
+    <string name="payment_from">Pay money from</string>
+    <string name="payment_to">Pay money to</string>
+</resources>

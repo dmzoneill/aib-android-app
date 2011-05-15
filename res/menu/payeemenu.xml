@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:id="@+id/addnewpayeeoption" android:title="Add new Payee" android:icon="@android:drawable/ic_menu_add"/>
+	<item android:id="@+id/addnewbilloption" android:title="Add new bill" android:icon="@android:drawable/ic_menu_add"/>
+	<item android:id="@+id/addnewcreditcardoption" android:title="Add new credit card" android:icon="@android:drawable/ic_menu_add"/>
+</menu>

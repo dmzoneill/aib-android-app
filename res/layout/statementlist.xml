@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/statementLayout" 
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+>
+		
+		<LinearLayout 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+		>
+		
+			<TextView 
+			    android:text="" 
+			    android:id="@+id/transactionName1" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textSize="8pt"
+				android:layout_marginLeft="2dp"
+				android:width="80dp"
+			/>
+
+			<TextView 
+				android:text="" 
+				android:id="@+id/transactionName2" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textSize="8pt"
+				android:layout_marginLeft="2dp"
+			/>			
+				
+		</LinearLayout>
+		
+		
+		<LinearLayout 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"	
+			android:id="@+id/debitRow"		
+		>
+				
+			<TextView 
+			    android:text="" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textSize="8pt"
+				android:layout_marginLeft="2dp"
+				android:width="80dp"
+			/>	
+					
+			<TextView 
+			    android:text="Debit : " 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textSize="8pt"
+				android:layout_marginLeft="2dp"	
+				android:id="@+id/debit" 
+			/>			
+					
+			<TextView 
+				android:text="" 
+				android:id="@+id/transactionName3" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textSize="8pt" 
+				android:layout_marginLeft="2dp"
+				android:textStyle="bold"
+			/>			
+				
+		</LinearLayout>
+		
+		<LinearLayout 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"	
+			android:id="@+id/creditRow"	
+		>
+				
+			<TextView 
+			    android:text="" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textSize="8pt"
+				android:layout_marginLeft="2dp"
+				android:width="80dp"
+			/>					
+			
+			<TextView 
+			    android:text="Credit : " 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textSize="8pt"
+				android:layout_marginLeft="2dp"	
+				android:id="@+id/credit" 		
+			/>	
+
+			<TextView 
+				android:text="" 
+				android:id="@+id/transactionName4"
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textSize="8pt"	
+				android:layout_marginLeft="2dp"
+				android:textStyle="bold"
+			/>			
+				
+		</LinearLayout>
+		
+		<LinearLayout 
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"	
+			android:id="@+id/balanceRow"	
+		>
+				
+			<TextView 
+			    android:text="" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textSize="8pt"
+				android:layout_marginLeft="2dp"
+				android:width="80dp"
+			/>	
+		
+			<TextView 
+			    android:text="Balance : " 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textSize="8pt"
+				android:layout_marginLeft="2dp"	
+				android:id="@+id/balance" 		
+			/>
+
+			<TextView 
+				android:text="" 
+				android:id="@+id/transactionName5" 
+				android:layout_width="wrap_content" 
+				android:layout_height="wrap_content"
+				android:textSize="8pt" 
+				android:layout_marginLeft="2dp"
+				android:textStyle="bold"
+			/>
+				
+		</LinearLayout>
+
+</LinearLayout>
+
