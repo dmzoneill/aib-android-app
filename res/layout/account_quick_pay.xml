@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/quickPayControlBar" style="@style/QuickPayPanel">
+    <TextView style="@style/QuickPayTitle" android:text="Quick Pay" />
+    <Spinner android:id="@+id/spinner1" style="@style/PaySpinner" android:prompt="@string/payment_type" />
+    <Spinner android:id="@+id/spinner2" style="@style/PaySpinner" android:prompt="@string/payment_from" />
+    <Spinner android:id="@+id/spinner3" style="@style/PaySpinner" android:prompt="@string/payment_to" />
+    <LinearLayout style="@style/AmountRow">
+        <TextView android:text="Amount € " style="@style/AmountLabel" />
+        <EditText android:id="@+id/amountEuro" style="@style/AmountEuro" android:text="0" />
+        <TextView android:text="." style="@style/AmountDot" />
+        <EditText android:id="@+id/amountCent" style="@style/AmountCent" android:text="00" />
+    </LinearLayout>
+    <LinearLayout style="@style/AmountRow">
+        <TextView android:text="PAC Digit" android:id="@+id/quickPayPacview" style="@style/PacLabel" />
+        <EditText android:id="@+id/quickPayPacDigit" style="@style/PacDigit" />
+        <Button android:id="@+id/quickPayButton" android:text="Confirm" style="@style/QuickPayButton" android:onClick="onClick" />
+    </LinearLayout>
+</LinearLayout>

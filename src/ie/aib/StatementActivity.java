@@ -1,136 +1,123 @@
 package ie.aib;
 
-import ie.aib.entities.Person;
-import android.app.ListActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import ie.aib.entities.Account;
+import ie.aib.entities.Person;
 
-public class StatementActivity extends ListActivity implements onTimedOut
-{
-	private static int accountNumber;
-	private StatementAdapter adapter;
-	private String title;
+/** Account statement. */
+public final class StatementActivity extends BankingList {
+  /** Account chosen on the overview. */
+  private static int accountNumber;
 
-	@Override
-	public void onCreate( Bundle savedInstanceState )
-	{
-		super.onCreate( savedInstanceState );
-		this.setContentView( R.layout.statementview );
+  /** Opaque black used when a row has neither a debit nor a credit. */
+  private static final int OPAQUE = 255;
 
-		this.title = Person.getInstance().getAccounts().get( StatementActivity.accountNumber ).getAccount();
-		this.setTitle( this.title );
+  /**
+   * @return account index
+   */
+  public static int getAccountNumber() {
+    return accountNumber;
+  }
 
-		Timeout.getInstance().attach( this );
-		Timeout.getInstance().autoLogoutTimer();
+  /**
+   * @param account account index
+   */
+  public static void setAccountNumber(final int account) {
+    accountNumber = account;
+  }
 
-		this.getListView();
+  /**
+   * @param instance unused framework state
+   */
+  @Override
+  public void onCreate(final Bundle instance) {
+    super.onCreate(instance);
+    this.setContentView(R.layout.statementview);
+    final Person person = Person.getInstance();
+    final Account account = person.getAccounts().get(accountNumber);
+    final String accountName = account.getAccount();
+    this.arm(accountName);
+    this.getListView();
+    this.setListAdapter(
+        new StatementAdapter(
+            Person.getInstance().getAccounts().get(accountNumber), // .
+            this));
+  }
 
-		this.adapter = new StatementAdapter( Person.getInstance().getAccounts().get( StatementActivity.accountNumber ) , this );
-		this.setListAdapter( this.adapter );
-	}
+  /**
+   * @param lines statement list
+   * @param cell tapped row
+   * @param at index
+   * @param rowId id
+   */
+  @Override
+  protected void onListItemClick(
+      final ListView lines, final View cell, final int at, final long rowId) {
+    final LinearLayout line = (LinearLayout) cell;
+    if (StatementAdapter.isSelected(at)) {
+      this.paintClosedRow(line);
+    } else {
+      line.setBackgroundColor(
+          Color.argb(
+              RowSelection.TINT, // .
+              0, // .
+              0, // .
+              RowSelection.TINT));
+    }
+    StatementAdapter.changeSelected(at);
+  }
 
-	@Override
-	protected void onListItemClick( ListView l , View v , int position , long id )
-	{
-		LinearLayout row = (LinearLayout) v;
+  private void paintClosedRow(final LinearLayout line) {
+    final int creditId = R.id.creditRow;
+    final LinearLayout credit = (LinearLayout) line.findViewById(creditId);
+    if (credit != null) {
+      line.setBackgroundColor(
+          Color.argb(
+              RowSelection.TINT, // .
+              0, // .
+              RowSelection.TINT, // .
+              0));
+    }
+    final LinearLayout debit = (LinearLayout) line.findViewById(R.id.debitRow);
+    if (debit != null) {
+      line.setBackgroundColor(
+          Color.argb(
+              RowSelection.TINT, // .
+              RowSelection.TINT, // .
+              0, // .
+              0));
+    }
+    if (debit == null && credit == null) {
+      line.setBackgroundColor(Color.argb(OPAQUE, 0, 0, 0));
+    }
+  }
 
-		if ( StatementAdapter.isSelected( position ) )
-		{
+  /**
+   * @param statementMenu statement menu @return true
+   */
+  @Override
+  public boolean onPrepareOptionsMenu(final Menu statementMenu) {
+    Menus.disable(
+        statementMenu,
+        R.id.statementSave,
+        R.id.statementSend,
+        R.id.statementRefresh,
+        R.id.statementHideDebits,
+        R.id.statementHideDeposits,
+        R.id.statementHideOther);
+    return super.onPrepareOptionsMenu(statementMenu);
+  }
 
-			LinearLayout creditRow = (LinearLayout) row.findViewById( R.id.creditRow );
-			if ( creditRow != null )
-			{
-				row.setBackgroundColor( Color.argb( 140 , 0 , 140 , 0 ) );
-			}
-
-			LinearLayout debitRow = (LinearLayout) row.findViewById( R.id.debitRow );
-			if ( debitRow != null )
-			{
-				row.setBackgroundColor( Color.argb( 140 , 140 , 0 , 0 ) );
-			}
-
-			if ( debitRow == null && creditRow == null )
-			{
-				row.setBackgroundColor( Color.argb( 255 , 0 , 0 , 0 ) );
-			}
-
-		}
-		else
-		{
-			row.setBackgroundColor( Color.argb( 140 , 0 , 0 , 140 ) );
-		}
-
-		StatementAdapter.changeSelected( position );
-	}
-	
-	
-	@Override
-	public boolean onPrepareOptionsMenu( Menu menu )
-	{
-		MenuItem statementSave = menu.findItem( R.id.statementSave );
-		MenuItem statementSend = menu.findItem( R.id.statementSend );
-		MenuItem statementRefresh = menu.findItem( R.id.statementRefresh );
-		MenuItem statementHideDebits = menu.findItem( R.id.statementHideDebits );
-		MenuItem statementHideDeposits = menu.findItem( R.id.statementHideDeposits );
-		MenuItem statementHideOther = menu.findItem( R.id.statementHideOther );
-		
-		statementSave.setEnabled( false );
-		statementSend.setEnabled( false );
-		statementRefresh.setEnabled( false );
-		statementHideDebits.setEnabled( false );
-		statementHideDeposits.setEnabled( false );
-		statementHideOther.setEnabled( false );
-
-		return super.onPrepareOptionsMenu( menu );
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu( Menu menu )
-	{
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate( R.menu.statementmenu , menu );
-		return true;
-	}
-
-	public static int getAccountNumber()
-	{
-		return StatementActivity.accountNumber;
-	}
-
-	public static void setAccountNumber( int accountNumber )
-	{
-		StatementActivity.accountNumber = accountNumber;
-	}
-
-	@Override
-	public void timedOut()
-	{
-		try
-		{
-			this.finish();
-		}
-		catch( Exception e )
-		{
-		}
-	}
-
-	@Override
-	public void countDownTitle( String title )
-	{
-		if ( title == null )
-		{
-			this.setTitle( this.title );
-		}
-		else
-		{
-			this.setTitle( title );
-		}
-	}
-
+  /**
+   * @return statement options menu
+   */
+  @Override
+  protected int optionsMenu() {
+    return R.menu.statementmenu;
+  }
 }

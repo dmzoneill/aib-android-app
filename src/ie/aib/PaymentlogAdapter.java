@@ -1,132 +1,123 @@
 package ie.aib;
 
-import java.util.ArrayList;
-
-import ie.aib.entities.Person;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import ie.aib.entities.Person;
 
-public class PaymentlogAdapter extends BaseAdapter
-{
+/** Rows for the payment log. */
+public final class PaymentlogAdapter extends ListRows {
+  /** Date column. */
+  private static final int DATE = 0;
 
-	private Person person;
-	private Context context;
-	private static ArrayList<Integer> selected;
+  /** Type column. */
+  private static final int TYPE = 1;
 
-	public PaymentlogAdapter( Person p , Context context )
-	{
-		this.person = p;
-		this.context = context;
-		PaymentlogAdapter.selected = new ArrayList<Integer>();
-	}
+  /** From-account column. */
+  private static final int FROM = 2;
 
-	public int getCount()
-	{
-		return this.person.getPaymentsCount();
-	}
+  /** Receiver column. */
+  private static final int RECEIVER = 3;
 
-	public String[] getItem( int position )
-	{
-		return this.person.getPayments().get( position );
-	}
+  /** Due-date column. */
+  private static final int DUE = 4;
 
-	public long getItemId( int position )
-	{
-		return position;
-	}
+  /** Amount column. */
+  private static final int AMOUNT = 5;
 
-	public View getView( int position , View convertView , ViewGroup parent )
-	{
-		LinearLayout itemLayout;
+  /** Expanded payment rows. */
+  private static SelectionSet selected;
 
-		String[] logEntry = this.person.getPayments().get( position );
+  /** Customer who owns these payments. */
+  private final Person person;
 
-		itemLayout = (LinearLayout) LayoutInflater.from( context ).inflate( R.layout.paymentloglist , parent , false );
+  /** Context used to inflate payment rows. */
+  private final Context context;
 
-		TextView paymentDate = (TextView) itemLayout.findViewById( R.id.paymentDate );
-		paymentDate.setText( logEntry[0] );
+  /**
+   * @param owner customer with payments
+   * @param host context that inflates payment rows
+   */
+  public PaymentlogAdapter(final Person owner, final Context host) {
+    this.person = owner;
+    this.context = host;
+    selected = new SelectionSet();
+  }
 
-		TextView paymentType = (TextView) itemLayout.findViewById( R.id.paymentType );
-		paymentType.setText( logEntry[1] );
+  /**
+   * @param pos payment row to toggle
+   */
+  public static void changeSelected(final int pos) {
+    selected.toggle(pos);
+  }
 
-		TextView paymentFrom = (TextView) itemLayout.findViewById( R.id.paymentFrom );
-		paymentFrom.setText( logEntry[2] );
+  /**
+   * @param pos payment row
+   * @return whether that payment is expanded
+   */
+  public static boolean isSelected(final int pos) {
+    return selected.contains(pos);
+  }
 
-		TextView paymentReceiver = (TextView) itemLayout.findViewById( R.id.paymentReceiver );
-		paymentReceiver.setText( logEntry[3] );
+  /**
+   * @return how many payments are loaded
+   */
+  @Override
+  public int getCount() {
+    return this.person.getPaymentsCount();
+  }
 
-		TextView paymentDuedate = (TextView) itemLayout.findViewById( R.id.paymentDuedate );
-		paymentDuedate.setText( logEntry[4] );
+  /**
+   * @param position payment index @return payment cells
+   */
+  @Override
+  public String[] getItem(final int position) {
+    return this.person.getPayments().get(position);
+  }
 
-		TextView paymentAmount = (TextView) itemLayout.findViewById( R.id.paymentAmount );
-		paymentAmount.setText( logEntry[5] );
+  /**
+   * @param position payment index
+   * @param recycled ignored
+   * @param parent log
+   * @return row
+   */
+  @Override
+  public View getView(
+      final int position, // .
+      final View recycled, // .
+      final ViewGroup parent) {
+    final String[] logEntry = this.person.getPayments().get(position);
+    final LinearLayout itemLayout =
+        (LinearLayout)
+            LayoutInflater.from(this.context)
+                .inflate(
+                    R.layout.paymentloglist, // .
+                    parent, // .
+                    false);
+    this.bind(itemLayout, logEntry);
+    if (selected.contains(position)) {
+      itemLayout.setBackgroundColor(
+          Color.argb(
+              RowSelection.TINT, // .
+              0, // .
+              RowSelection.TINT, // .
+              0));
+      PaymentDetails.setOpen(itemLayout, true);
+    } else {
+      PaymentDetails.setOpen(itemLayout, false);
+    }
+    return itemLayout;
+  }
 
-		if ( PaymentlogAdapter.selected.contains( position ) )
-		{
-			itemLayout.setBackgroundColor( Color.argb( 140 , 0 , 140 , 0 ) );
-
-			LinearLayout rowDetails1 = (LinearLayout) itemLayout.findViewById( R.id.paymentDetails1 );
-			rowDetails1.setVisibility( LinearLayout.VISIBLE );
-
-			LinearLayout rowDetails2 = (LinearLayout) itemLayout.findViewById( R.id.paymentDetails2 );
-			rowDetails2.setVisibility( LinearLayout.VISIBLE );
-
-			LinearLayout rowDetails3 = (LinearLayout) itemLayout.findViewById( R.id.paymentDetails3 );
-			rowDetails3.setVisibility( LinearLayout.VISIBLE );
-
-			TextView duedate = (TextView) rowDetails3.findViewById( R.id.paymentDuedate );
-
-			if ( duedate.getText().toString() == "" )
-			{
-				rowDetails3.setVisibility( LinearLayout.GONE );
-			}
-			else
-			{
-				rowDetails3.setVisibility( LinearLayout.VISIBLE );
-			}
-		}
-		else
-		{
-			LinearLayout rowDetails1 = (LinearLayout) itemLayout.findViewById( R.id.paymentDetails1 );
-			rowDetails1.setVisibility( LinearLayout.GONE );
-
-			LinearLayout rowDetails2 = (LinearLayout) itemLayout.findViewById( R.id.paymentDetails2 );
-			rowDetails2.setVisibility( LinearLayout.GONE );
-
-			LinearLayout rowDetails3 = (LinearLayout) itemLayout.findViewById( R.id.paymentDetails3 );
-			rowDetails3.setVisibility( LinearLayout.GONE );
-		}
-
-		return itemLayout;
-	}
-
-	public static void changeSelected( int pos )
-	{
-		if ( PaymentlogAdapter.selected.contains( pos ) )
-		{
-			PaymentlogAdapter.selected.remove( (Integer) pos );
-		}
-		else
-		{
-			PaymentlogAdapter.selected.add( (Integer) pos );
-		}
-	}
-
-	public static boolean isSelected( int pos )
-	{
-		if ( PaymentlogAdapter.selected.contains( pos ) )
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+  private void bind(final View itemLayout, final String[] logEntry) {
+    label(itemLayout, R.id.paymentDate, logEntry[DATE]);
+    label(itemLayout, R.id.paymentType, logEntry[TYPE]);
+    label(itemLayout, R.id.paymentFrom, logEntry[FROM]);
+    label(itemLayout, R.id.paymentReceiver, logEntry[RECEIVER]);
+    label(itemLayout, R.id.paymentDuedate, logEntry[DUE]);
+    label(itemLayout, R.id.paymentAmount, logEntry[AMOUNT]);
+  }
 }

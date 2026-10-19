@@ -1,138 +1,66 @@
 package ie.aib;
 
-import ie.aib.entities.Person;
-import android.app.ListActivity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
+import ie.aib.entities.Person;
 
-public class PaymentlogActivity extends ListActivity implements onTimedOut
-{
-	private PaymentlogAdapter adapter;
-	private String title;
-	
-	@Override
-	public void onCreate( Bundle savedInstanceState )
-	{
-		super.onCreate( savedInstanceState );
-		this.setContentView( R.layout.paymentlogview );
-		
-		this.title = "Payment log";		
-		this.setTitle( this.title );
-		
-		Timeout.getInstance().attach( this );	
-		Timeout.getInstance().autoLogoutTimer();
+/** Payment log. */
+public final class PaymentlogActivity extends BankingList {
+  /**
+   * @param bundle unused framework state
+   */
+  @Override
+  public void onCreate(final Bundle bundle) {
+    super.onCreate(bundle);
+    this.setContentView(R.layout.paymentlogview);
+    this.arm("Payment log");
+    this.getListView();
+    this.setListAdapter(new PaymentlogAdapter(Person.getInstance(), this));
+  }
 
-		this.getListView();
-		
-		this.adapter = new PaymentlogAdapter( Person.getInstance() , this );	
-		this.setListAdapter( this.adapter );	
-	}
+  /**
+   * @param log payment list
+   * @param entry tapped row
+   * @param place row index
+   * @param rowId id
+   */
+  @Override
+  protected void onListItemClick(
+      final ListView log, final View entry, final int place, final long rowId) {
+    final LinearLayout line = (LinearLayout) entry;
+    if (PaymentlogAdapter.isSelected(place)) {
+      PaymentDetails.setOpen(line, false);
+      line.setBackgroundColor(Color.argb(0, 0, 0, 0));
+    } else {
+      line.setBackgroundColor(
+          Color.argb(
+              RowSelection.TINT, // .
+              0, // .
+              RowSelection.TINT, // .
+              0));
+      PaymentDetails.setOpen(line, true);
+    }
+    PaymentlogAdapter.changeSelected(place);
+  }
 
-	@Override
-	protected void onListItemClick( ListView l , View v , int position , long id )
-	{				
-		LinearLayout row = (LinearLayout) v;
-		
-		if ( PaymentlogAdapter.isSelected( position ) )
-		{
-			LinearLayout rowDetails1 = (LinearLayout) row.findViewById( R.id.paymentDetails1 );
-			rowDetails1.setVisibility(  LinearLayout.GONE );
-			
-			LinearLayout rowDetails2 = (LinearLayout) row.findViewById( R.id.paymentDetails2 );
-			rowDetails2.setVisibility(  LinearLayout.GONE );
-			
-			LinearLayout rowDetails3 = (LinearLayout) row.findViewById( R.id.paymentDetails3 );
-			rowDetails3.setVisibility(  LinearLayout.GONE );	
-			
-			row.setBackgroundColor( Color.argb( 0 , 0 , 0 , 0 ) );	
+  /**
+   * @param logMenu payment-log menu @return true
+   */
+  @Override
+  public boolean onPrepareOptionsMenu(final Menu logMenu) {
+    Menus.disable(logMenu, R.id.viewInternationalPayments);
+    return super.onPrepareOptionsMenu(logMenu);
+  }
 
-		}
-		else
-		{
-			row.setBackgroundColor( Color.argb( 140 , 0 , 140 , 0 ) );	
-			
-			LinearLayout rowDetails1 = (LinearLayout) row.findViewById( R.id.paymentDetails1 );
-			rowDetails1.setVisibility(  LinearLayout.VISIBLE );
-			
-			LinearLayout rowDetails2 = (LinearLayout) row.findViewById( R.id.paymentDetails2 );
-			rowDetails2.setVisibility(  LinearLayout.VISIBLE );
-			
-			LinearLayout rowDetails3 = (LinearLayout) row.findViewById( R.id.paymentDetails3 );
-			rowDetails3.setVisibility(  LinearLayout.VISIBLE );	
-			
-			TextView duedate = ( TextView ) rowDetails3.findViewById( R.id.paymentDuedate );
-			
-			if( duedate.getText().toString() == "" )
-			{
-				rowDetails3.setVisibility(  LinearLayout.GONE );
-			}
-			else
-			{
-				rowDetails3.setVisibility(  LinearLayout.VISIBLE );
-			}
-		}			
-			
-		PaymentlogAdapter.changeSelected( position );
-		
-	}
-			
-
-	@Override
-	public void timedOut()
-	{
-		try
-		{
-			this.finish();
-		}
-		catch( Exception e ){}
-	}
-
-	
-	@Override
-	public void countDownTitle( String title )
-	{
-		if( title == null )
-		{
-			this.setTitle( this.title );
-		}		
-		else
-		{
-			this.setTitle( title );
-		}
-	}
-	
-	@Override
-	public boolean onPrepareOptionsMenu( Menu menu )
-	{
-		MenuItem viewInternationalPayments = menu.findItem( R.id.viewInternationalPayments );
-		
-		viewInternationalPayments.setEnabled( false );
-
-		return super.onPrepareOptionsMenu( menu );
-	}
-	
-	
-	@Override
-	public boolean onCreateOptionsMenu( Menu menu )
-	{
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate( R.menu.paymentslogmenu , menu );
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected( MenuItem item )
-	{
-		return super.onOptionsItemSelected( item );
-		
-	}
-	
-	
+  /**
+   * @return payment-log options menu
+   */
+  @Override
+  protected int optionsMenu() {
+    return R.menu.paymentslogmenu;
+  }
 }

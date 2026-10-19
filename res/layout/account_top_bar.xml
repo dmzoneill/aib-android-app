@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/top_control_bar" style="@style/ScreenTopBar">
+    <TextView android:text="Account" style="@style/AccountHeader" android:layout_marginLeft="10px" />
+    <TextView android:text="Balance" style="@style/AccountHeader" android:layout_marginRight="10px" android:layout_gravity="right" android:gravity="right" />
+</LinearLayout>
