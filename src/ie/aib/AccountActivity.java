@@ -497,7 +497,7 @@ public final class AccountActivity extends BankingList implements Runnable {
             cent, // .
             pac, // .
             type)) {
-      this.deliver("Transaction completed sucessfully");
+      this.deliver("Transaction completed successfully");
     } else {
       this.deliver(WebHelper.getInstance().getLastError());
     }
