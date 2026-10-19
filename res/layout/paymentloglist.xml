@@ -1,140 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout 
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/paymentlogLayout" 
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical"
->	
-
-	<LinearLayout 
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"
-		android:orientation="vertical"
-	>
-	
-		<TextView 
-			android:text="" 
-			android:id="@+id/paymentDate"
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"			
-			android:textSize="6pt"
-			android:layout_weight="1"
-			android:layout_marginLeft="10px"
-		/>	
-		
-	</LinearLayout>
-
-	<LinearLayout 
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-	>
-	
-		<TextView 
-			android:text="" 
-			android:id="@+id/paymentReceiver"
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"			
-			android:textSize="9pt"
-			android:layout_weight="1"
-			android:layout_marginLeft="10px"
-		/>	
-		
-		<TextView 
-			android:text="" 
-			android:id="@+id/paymentAmount"
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"			
-			android:textSize="7pt"		
-			android:layout_weight="1"
-			android:gravity="right"
-			android:layout_gravity="center_vertical"
-			android:layout_marginRight="10px" 
-		/>
-			
-	</LinearLayout>			
-		
-	<LinearLayout 
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:id="@+id/paymentDetails1"	
-	>
-	
-		<TextView 
-			android:text="From account" 
-			android:layout_width="100dp" 
-			android:layout_height="wrap_content"			
-			android:textSize="6pt"	
-			android:layout_marginLeft="10px" 
-		/>	
-	
-		<TextView 
-			android:text="" 
-			android:id="@+id/paymentFrom"
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"			
-			android:textSize="6pt"		
-			android:layout_marginLeft="10px" 
-			android:textStyle="bold"
-		/>					
-			
-	</LinearLayout>
-	
-	<LinearLayout 
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:id="@+id/paymentDetails2"	
-	>
-	
-		<TextView 
-			android:text="Payment type" 
-			android:layout_width="100dp" 
-			android:layout_height="wrap_content"			
-			android:textSize="6pt"	
-			android:layout_marginLeft="10px" 
-		/>	
-		
-		<TextView 
-			android:text="" 
-			android:id="@+id/paymentType"
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"			
-			android:textSize="6pt"		
-			android:textStyle="bold"
-			android:layout_marginLeft="10px"  
-		/>			
-			
-	</LinearLayout>
-		
-	<LinearLayout 
-		android:layout_width="fill_parent" 
-		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:id="@+id/paymentDetails3"
-	>			
-	
-		<TextView 
-			android:text="Due date" 
-			android:layout_width="100dp" 
-			android:layout_height="wrap_content"			
-			android:textSize="6pt"	
-			android:layout_marginLeft="10px" 
-		/>	
-		
-		<TextView 
-			android:text="" 
-			android:id="@+id/paymentDuedate"
-			android:layout_width="wrap_content" 
-			android:layout_height="wrap_content"			
-			android:textSize="6pt"		
-			android:textStyle="bold"
-			android:layout_marginLeft="10px" 
-		/>		
-			
-	</LinearLayout>	
-	
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/paymentlogLayout" style="@style/ListItem">
+<LinearLayout style="@style/ListItem">
+<TextView android:id="@+id/paymentDate" style="@style/LogDate" />
 </LinearLayout>
-
+<LinearLayout style="@style/DetailRow">
+<TextView android:id="@+id/paymentReceiver" style="@style/Headline" />
+<TextView android:id="@+id/paymentAmount" style="@style/HeadlineRight" />
+</LinearLayout>
+<LinearLayout android:id="@+id/paymentDetails1" style="@style/DetailRow">
+<TextView android:text="From account" style="@style/DetailLabelWide" />
+<TextView android:id="@+id/paymentFrom" style="@style/DetailValueSmall" />
+</LinearLayout>
+<LinearLayout android:id="@+id/paymentDetails2" style="@style/DetailRow">
+<TextView android:text="Payment type" style="@style/DetailLabelWide" />
+<TextView android:id="@+id/paymentType" style="@style/DetailValueSmall" />
+</LinearLayout>
+<LinearLayout android:id="@+id/paymentDetails3" style="@style/DetailRow">
+<TextView android:text="Due date" style="@style/DetailLabelWide" />
+<TextView android:id="@+id/paymentDuedate" style="@style/DetailValueSmall" />
+</LinearLayout>
+</LinearLayout>

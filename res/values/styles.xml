@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ScreenRoot">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">@drawable/bg</item>
+    </style>
+    <style name="ScreenTopBar">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">#00000000</item>
+    </style>
+    <style name="ScreenList">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">0dip</item>
+        <item name="android:layout_below">@id/top_control_bar</item>
+        <item name="android:layout_above">@id/bottom_control_bar</item>
+        <item name="android:cacheColorHint">#00000000</item>
+    </style>
+    <style name="ScreenBottomBar">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:background">#AA000000</item>
+    </style>
+    <style name="AccountHeader">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">10pt</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="QuickPayPanel" parent="ScreenBottomBar">
+        <item name="android:background">#00000000</item>
+        <item name="android:layout_marginLeft">10px</item>
+        <item name="android:layout_marginRight">10px</item>
+        <item name="android:layout_marginTop">10px</item>
+    </style>
+    <style name="QuickPayTitle">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16dp</item>
+        <item name="android:layout_marginLeft">5px</item>
+        <item name="android:layout_marginBottom">10px</item>
+        <item name="android:textColor">#ffffffff</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="PaySpinner">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:drawSelectorOnTop">true</item>
+    </style>
+    <style name="AmountRow">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="AmountLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">8pt</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:layout_marginLeft">5px</item>
+        <item name="android:layout_weight">2</item>
+    </style>
+    <style name="AmountEuro">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:inputType">number</item>
+        <item name="android:layout_width">100sp</item>
+        <item name="android:layout_weight">1.5</item>
+    </style>
+    <style name="AmountDot">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12pt</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:layout_weight">0.5</item>
+    </style>
+    <style name="AmountCent">
+        <item name="android:layout_height">50dp</item>
+        <item name="android:inputType">number</item>
+        <item name="android:layout_width">60sp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+    <style name="PacLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">8pt</item>
+        <item name="android:background">#00000000</item>
+        <item name="android:layout_marginLeft">5px</item>
+        <item name="android:layout_weight">1.5</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="PacDigit">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">number</item>
+        <item name="android:layout_width">50sp</item>
+        <item name="android:layout_marginLeft">5px</item>
+        <item name="android:layout_weight">0.5</item>
+        <item name="android:password">true</item>
+    </style>
+    <style name="QuickPayButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_marginLeft">5px</item>
+        <item name="android:layout_weight">3</item>
+    </style>
+    <style name="LoginScreen">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">@drawable/bg</item>
+        <item name="android:layout_margin">0px</item>
+        <item name="android:padding">0px</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="LoginColumn">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+    <style name="LoginLogo">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="LoginPrompt">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="LoginPromptWide" parent="LoginPrompt">
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+    <style name="LoginBox">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:maxWidth">180dp</item>
+        <item name="android:width">180dp</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+    <style name="LoginReg" parent="LoginBox">
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="LoginNext" parent="LoginBox" />
+    <style name="PacRow">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="PacIndex">
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+    </style>
+    <style name="PacEntry">
+        <item name="android:layout_width">50sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:password">true</item>
+    </style>
+    <style name="ChallengeField" parent="LoginReg">
+        <item name="android:maxWidth">120dp</item>
+        <item name="android:width">120dp</item>
+        <item name="android:password">true</item>
+    </style>
+    <style name="ListItem">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="DetailRow">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="Headline">
+        <item name="android:text"></item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">9pt</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginLeft">10px</item>
+    </style>
+    <style name="HeadlineRight">
+        <item name="android:text"></item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">7pt</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">right</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginRight">10px</item>
+    </style>
+    <style name="DetailLabel">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">6pt</item>
+        <item name="android:layout_marginLeft">10px</item>
+    </style>
+    <style name="DetailLabelWide" parent="DetailLabel">
+        <item name="android:layout_width">100dp</item>
+    </style>
+    <style name="DetailValue">
+        <item name="android:text"></item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">7pt</item>
+        <item name="android:layout_marginLeft">10px</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="DetailValueSmall" parent="DetailValue">
+        <item name="android:textSize">6pt</item>
+    </style>
+    <style name="RowAction">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginLeft">10px</item>
+        <item name="android:maxWidth">180dp</item>
+        <item name="android:textSize">7pt</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:clickable">true</item>
+        <item name="android:enabled">false</item>
+    </style>
+    <style name="LogDate">
+        <item name="android:text"></item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">6pt</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginLeft">10px</item>
+    </style>
+    <style name="StatementLine">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <style name="StatementText">
+        <item name="android:text"></item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">8pt</item>
+        <item name="android:layout_marginLeft">2dp</item>
+    </style>
+    <style name="StatementSpacer" parent="StatementText">
+        <item name="android:width">80dp</item>
+    </style>
+    <style name="StatementAmount" parent="StatementText">
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

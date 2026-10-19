@@ -1,89 +1,121 @@
 package ie.aib;
 
-import ie.aib.entities.Person;
-import ie.aib.entities.StandingOrder;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import ie.aib.entities.Person;
+import ie.aib.entities.StandingOrder;
+import java.util.List;
 
-public class StandingordersAdapter extends BaseAdapter
-{
-	private static int selected;
-	private Person person;
-	private Context context;
+/** Rows for the standing-order list. */
+public final class StandingordersAdapter extends ListRows {
+  /** Which standing order is open. */
+  private static final SingleSelection SELECTION = new SingleSelection();
 
-	public StandingordersAdapter( Person p , Context context )
-	{
-		StandingordersAdapter.selected = -1;
-		this.person = p;
-		this.context = context;
-	}
+  /** Customer who owns these orders. */
+  private final Person person;
 
-	public int getCount()
-	{
-		return this.person.getStandingOrdersCount();
-	}
+  /** Context used to inflate order rows. */
+  private final Context context;
 
-	public StandingOrder getItem( int position )
-	{
-		return this.person.getStandingorders().get( position );
-	}
+  /**
+   * @param owner customer with standing orders
+   * @param host context that inflates order rows
+   */
+  public StandingordersAdapter(final Person owner, final Context host) {
+    SELECTION.clear();
+    this.person = owner;
+    this.context = host;
+  }
 
-	public long getItemId( int position )
-	{
-		return position;
-	}
+  /**
+   * @param pos open standing-order row
+   */
+  public static void setSelected(final int pos) {
+    SELECTION.set(pos);
+  }
 
-	public View getView( int position , View convertView , ViewGroup parent )
-	{
-		LinearLayout itemLayout;
+  /**
+   * @return open standing-order row, or -1
+   */
+  public static int getSelected() {
+    return SELECTION.get();
+  }
 
-		StandingOrder logEntry = this.person.getStandingorders().get( position );
+  /**
+   * @return sink that records the open standing order
+   */
+  public static RowSelection.Sink sink() {
+    return SELECTION.sink();
+  }
 
-		itemLayout = (LinearLayout) LayoutInflater.from( context ).inflate( R.layout.standingorderslist , parent , false );
+  /**
+   * @return how many standing orders are loaded
+   */
+  @Override
+  public int getCount() {
+    return this.person.getStandingOrdersCount();
+  }
 
-		TextView frequency = (TextView) itemLayout.findViewById( R.id.standingordersFrequency );
-		frequency.setText( logEntry.getFrequency() );
+  /**
+   * @param position order index @return that standing order
+   */
+  @Override
+  public StandingOrder getItem(final int position) {
+    return this.person.getStandingorders().get(position);
+  }
 
-		TextView fromAccount = (TextView) itemLayout.findViewById( R.id.standingordersFromAccount );
-		fromAccount.setText( logEntry.getFromAccount() );
+  /**
+   * @param position order index
+   * @param recycled ignored
+   * @param parent order list
+   * @return row
+   */
+  @Override
+  public View getView(
+      final int position, // .
+      final View recycled, // .
+      final ViewGroup parent) {
+    final List<StandingOrder> orders = this.person.getStandingorders();
+    final StandingOrder logEntry = orders.get(position);
+    final LinearLayout itemLayout =
+        (LinearLayout)
+            LayoutInflater.from(this.context)
+                .inflate(
+                    R.layout.standingorderslist, // .
+                    parent, // .
+                    false);
+    this.bind(itemLayout, logEntry);
+    final LinearLayout options =
+        (LinearLayout) itemLayout.findViewById(R.id.standingOrderRowOptions);
+    options.setVisibility(LinearLayout.GONE);
+    itemLayout.setBackgroundColor(Color.argb(0, 0, 0, 0));
+    if (SELECTION.get() == position) {
+      itemLayout.setBackgroundColor(
+          Color.argb(
+              RowSelection.TINT, // .
+              0, // .
+              RowSelection.TINT, // .
+              0));
+      options.setVisibility(LinearLayout.VISIBLE);
+    }
+    return itemLayout;
+  }
 
-		TextView receiver = (TextView) itemLayout.findViewById( R.id.standingordersReceiver );
-		receiver.setText( logEntry.getReceiver() );
-
-		TextView nextAmount = (TextView) itemLayout.findViewById( R.id.standingordersNextAmount );
-		nextAmount.setText( logEntry.getNextAmount() );
-
-		TextView nextDate = (TextView) itemLayout.findViewById( R.id.standingordersNextDate );
-		nextDate.setText( logEntry.getNextDate() );
-
-		LinearLayout optrow = (LinearLayout) itemLayout.findViewById( R.id.standingOrderRowOptions );
-		optrow.setVisibility( LinearLayout.GONE );
-		
-		itemLayout.setBackgroundColor( Color.argb( 0 , 0 , 0 , 0 ) );
-		
-		if( StandingordersAdapter.selected == position )
-		{
-			itemLayout.setBackgroundColor( Color.argb( 140 , 0 , 140 , 0 ) );
-			optrow.setVisibility( LinearLayout.VISIBLE );	
-		}
-
-		return itemLayout;
-	}
-		
-	public static void setSelected( int pos )
-	{
-		StandingordersAdapter.selected = pos;		
-	}
-	
-	
-	public static int getSelected()
-	{
-		return StandingordersAdapter.selected;
-	}
+  private void bind(final View itemLayout, final StandingOrder logEntry) {
+    ((TextView) itemLayout.findViewById(R.id.standingordersFrequency))
+        .setText(logEntry.getFrequency());
+    ((TextView) itemLayout.findViewById(R.id.standingordersFromAccount))
+        .setText(logEntry.getFromAccount());
+    ((TextView) itemLayout.findViewById(R.id.standingordersReceiver))
+        .setText(logEntry.getReceiver());
+    ((TextView) itemLayout.findViewById(R.id.standingordersNextAmount))
+        .setText(logEntry.getNextAmount());
+    ((TextView) itemLayout.findViewById(R.id.standingordersNextDate))
+        .setText(logEntry.getNextDate());
+  }
 }

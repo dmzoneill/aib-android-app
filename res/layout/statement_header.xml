@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/top_control_bar" style="@style/ScreenTopBar">
+    <TextView android:text="Date" style="@style/StatementSpacer" />
+    <TextView android:text="Transaction" style="@style/StatementText" />
+</LinearLayout>

@@ -1,107 +1,131 @@
 package ie.aib;
 
-import ie.aib.entities.Payee;
-import ie.aib.entities.Person;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+import ie.aib.entities.Payee;
+import ie.aib.entities.Person;
 
-public class PayeesAdapter extends BaseAdapter
-{
-	private static int selected;
-	private Person person;
-	private Context context;
+/** Rows for the payee list. */
+public final class PayeesAdapter extends ListRows {
+  /** Which payee row is open. */
+  private static final SingleSelection SELECTION = new SingleSelection();
 
-	public PayeesAdapter( Person p , Context context )
-	{
-		PayeesAdapter.selected = -1;
-		this.person = p;
-		this.context = context;
-	}
+  /** Customer who owns these payees. */
+  private final Person person;
 
-	public int getCount()
-	{
-		return this.person.getPayeeCount();
-	}
+  /** Context used to inflate payee rows. */
+  private final Context context;
 
-	public Payee getItem( int position )
-	{
-		return this.person.getPayees().get( position );
-	}
+  /**
+   * @param owner signed-in customer
+   * @param host inflater context
+   */
+  public PayeesAdapter(final Person owner, final Context host) {
+    SELECTION.clear();
+    this.person = owner;
+    this.context = host;
+  }
 
-	public long getItemId( int position )
-	{
-		return position;
-	}
+  /**
+   * @param pos open payee row
+   */
+  public static void setSelected(final int pos) {
+    SELECTION.set(pos);
+  }
 
-	public View getView( int position , View convertView , ViewGroup parent )
-	{
-		LinearLayout itemLayout;
-		LinearLayout p;
-		
-		Payee acc = this.person.getPayees().get( position );
+  /**
+   * @return open payee row, or -1
+   */
+  public static int getSelected() {
+    return SELECTION.get();
+  }
 
-		itemLayout = (LinearLayout) LayoutInflater.from( context ).inflate( R.layout.payeeslist , parent , false );
-		p = (LinearLayout) itemLayout.findViewById( R.id.payeesLayout );
+  /**
+   * @return sink that records the open payee
+   */
+  public static RowSelection.Sink sink() {
+    return SELECTION.sink();
+  }
 
-		TextView payeeName = (TextView) itemLayout.findViewById( R.id.payeeName );
-		payeeName.setText( acc.getName() );
+  /**
+   * @return how many payees are loaded
+   */
+  @Override
+  public int getCount() {
+    return this.person.getPayeeCount();
+  }
 
-		TextView payeeType = (TextView) itemLayout.findViewById( R.id.payeeType );
-		payeeType.setText( acc.getPaymentType() );
-		
-		TextView payeeRef = (TextView) itemLayout.findViewById( R.id.payeeReference );
-		payeeRef.setText( acc.getReferenceNumber() );
-		
-		TextView payeeNSC = (TextView) itemLayout.findViewById( R.id.payeeNSC );
-		payeeNSC.setText( acc.getNSC() );
-		
-		TextView payeeAcc = (TextView) itemLayout.findViewById( R.id.payeeAccount );
-		payeeAcc.setText( acc.getAccountNumber() );
-		
-		LinearLayout accrow1 = (LinearLayout) itemLayout.findViewById( R.id.payeeRowAccount1 );
-		LinearLayout accrow2 = (LinearLayout) itemLayout.findViewById( R.id.payeeRowAccount2 );
-		LinearLayout refrow = (LinearLayout) itemLayout.findViewById( R.id.payeeRowReference );
-		LinearLayout optrow = (LinearLayout) itemLayout.findViewById( R.id.payeeRowOptions );
-		
-		p.setBackgroundColor( Color.argb( 0 , 0 , 0 , 0 ) );
-		
-		if( acc.getNSC().compareToIgnoreCase( "n/a" ) == 0 || acc.getAccountNumber().compareToIgnoreCase( "n/a" ) == 0 )
-		{			
-			p.removeView( accrow1 );
-			p.removeView( accrow2 );
-		}
-		else
-		{
-			p.removeView( refrow );
-		}
-		
-		optrow.setVisibility( LinearLayout.GONE );
-		
-		if( PayeesAdapter.selected == position )
-		{
-			p.setBackgroundColor( Color.argb( 140 , 0 , 140 , 0 ) );
-			optrow.setVisibility( LinearLayout.VISIBLE );	
-		}
-		
-		return itemLayout;
-	}
-	
-	
-	public static void setSelected( int pos )
-	{
-		PayeesAdapter.selected = pos;
-		
-	}
-	
-	
-	public static int getSelected()
-	{
-		return PayeesAdapter.selected;
-	}
+  /**
+   * @param position payee index @return that payee
+   */
+  @Override
+  public Payee getItem(final int position) {
+    return this.person.getPayees().get(position);
+  }
+
+  /**
+   * @param position payee index
+   * @param recycled ignored
+   * @param parent payee list
+   * @return row
+   */
+  @Override
+  public View getView(
+      final int position, // .
+      final View recycled, // .
+      final ViewGroup parent) {
+    final Payee acc = this.person.getPayees().get(position);
+    final LinearLayout itemLayout =
+        (LinearLayout)
+            LayoutInflater.from(this.context)
+                .inflate(
+                    R.layout.payeeslist, // .
+                    parent, // .
+                    false);
+    final int layoutId = R.id.payeesLayout;
+    final LinearLayout row = (LinearLayout) itemLayout.findViewById(layoutId);
+    this.bind(itemLayout, acc);
+    final int accountId = R.id.payeeRowAccount1;
+    final View accountView = itemLayout.findViewById(accountId);
+    final LinearLayout accountRow = (LinearLayout) accountView;
+    final int sortId = R.id.payeeRowAccount2;
+    final LinearLayout sortRow = (LinearLayout) itemLayout.findViewById(sortId);
+    final int referenceId = R.id.payeeRowReference;
+    final View referenceView = itemLayout.findViewById(referenceId);
+    final LinearLayout referenceRow = (LinearLayout) referenceView;
+    final int optionId = R.id.payeeRowOptions;
+    final View optionView = itemLayout.findViewById(optionId);
+    final LinearLayout options = (LinearLayout) optionView;
+    row.setBackgroundColor(Color.argb(0, 0, 0, 0));
+    if (acc.getNSC().compareToIgnoreCase("n/a") == 0
+        || acc.getAccountNumber().compareToIgnoreCase("n/a") == 0) {
+      row.removeView(accountRow);
+      row.removeView(sortRow);
+    } else {
+      row.removeView(referenceRow);
+    }
+    options.setVisibility(LinearLayout.GONE);
+    if (SELECTION.get() == position) {
+      row.setBackgroundColor(
+          Color.argb(
+              RowSelection.TINT, // .
+              0, // .
+              RowSelection.TINT, // .
+              0));
+      options.setVisibility(LinearLayout.VISIBLE);
+    }
+    return itemLayout;
+  }
+
+  private void bind(final View itemLayout, final Payee acc) {
+    label(itemLayout, R.id.payeeName, acc.getName());
+    label(itemLayout, R.id.payeeType, acc.getPaymentType());
+    label(itemLayout, R.id.payeeReference, acc.getReferenceNumber());
+    label(itemLayout, R.id.payeeNSC, acc.getNSC());
+    label(itemLayout, R.id.payeeAccount, acc.getAccountNumber());
+  }
 }

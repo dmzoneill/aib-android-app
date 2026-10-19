@@ -1,132 +1,145 @@
 package ie.aib;
 
-import ie.aib.entities.Account;
-
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import ie.aib.entities.Account;
 
-public class StatementAdapter extends BaseAdapter
-{
-	private static ArrayList< Integer > selected;
-	private Account account;
-	private Context context;
+/** Rows for an account statement. */
+public final class StatementAdapter extends ListRows {
+  /** Shortest amount that is still shown. */
+  private static final int MIN_AMOUNT = 2;
 
-	public StatementAdapter( Account a , Context context )
-	{
-		this.account = a;
-		this.context = context;
-		StatementAdapter.selected = new ArrayList< Integer >();
-	}
+  /** Debit column. */
+  private static final int DEBIT = 2;
 
-	public int getCount()
-	{
-		return this.account.getStatement().size();
-	}
+  /** Credit column. */
+  private static final int CREDIT = 3;
 
-	public String[] getItem( int position )
-	{
-		return this.account.getStatement().get( position );
-	}
+  /** Balance column. */
+  private static final int BALANCE = 4;
 
-	public long getItemId( int position )
-	{
-		return position;
-	}
+  /** Expanded statement rows. */
+  private static SelectionSet selected;
 
-	public View getView( int position , View convertView , ViewGroup parent )
-	{
-		LinearLayout itemLayout;
-		LinearLayout p;
-		String[] statement = this.account.getStatement().get( position );
+  /** Account being shown. */
+  private final Account account;
 
-		itemLayout = (LinearLayout) LayoutInflater.from( context ).inflate( R.layout.statementlist , parent , false );
-		p = (LinearLayout) itemLayout.findViewById( R.id.statementLayout );
+  /** Context used to inflate statement rows. */
+  private final Context context;
 
-		TextView p1 = (TextView) itemLayout.findViewById( R.id.transactionName1 );
-		p1.setText( statement[0] );
+  /**
+   * @param source account whose statement is shown
+   * @param host context that inflates statement rows
+   */
+  public StatementAdapter(final Account source, final Context host) {
+    this.account = source;
+    this.context = host;
+    selected = new SelectionSet();
+  }
 
-		TextView p2 = (TextView) itemLayout.findViewById( R.id.transactionName2 );
-		p2.setText( statement[1] );
+  /**
+   * @param pos statement row to toggle
+   */
+  public static void changeSelected(final int pos) {
+    selected.toggle(pos);
+  }
 
-		TextView p3 = (TextView) itemLayout.findViewById( R.id.transactionName3 );
-		p3.setText( "€" + statement[2] );
+  /**
+   * @param pos statement row
+   * @return whether that line is expanded
+   */
+  public static boolean isSelected(final int pos) {
+    return selected.contains(pos);
+  }
 
-		if ( statement[2].length() < 2 )
-		{
-			LinearLayout row = (LinearLayout) itemLayout.findViewById( R.id.debitRow );
-			p.removeView( row );
-		}
-		else
-		{
-			LinearLayout row = (LinearLayout) itemLayout.findViewById( R.id.statementLayout );
-			row.setBackgroundColor( Color.argb( 140 , 140 , 0 , 0 ) );
-		}
+  /**
+   * @return how many statement lines are loaded
+   */
+  @Override
+  public int getCount() {
+    return this.account.getStatement().size();
+  }
 
-		TextView p4 = (TextView) itemLayout.findViewById( R.id.transactionName4 );
-		p4.setText( "€" + statement[3] );
+  /**
+   * @param position statement index @return statement cells
+   */
+  @Override
+  public String[] getItem(final int position) {
+    return this.account.getStatement().get(position);
+  }
 
-		if ( statement[3].length() < 2 )
-		{
-			LinearLayout row = (LinearLayout) itemLayout.findViewById( R.id.creditRow );
-			p.removeView( row );
-		}
-		else
-		{
-			LinearLayout row = (LinearLayout) itemLayout.findViewById( R.id.statementLayout );
-			row.setBackgroundColor( Color.argb( 140 , 0 , 140 , 0 ) );
-		}
-		
-		
-		TextView p5 = (TextView) itemLayout.findViewById( R.id.transactionName5 );
-		p5.setText( "€" + statement[4] );
-	
-		if ( statement[4].length() < 2 )
-		{
-			LinearLayout row = (LinearLayout) itemLayout.findViewById( R.id.balanceRow );
-			p.removeView( row );
-		}
-		
-		if( StatementAdapter.selected.contains( position ) )
-		{
-			LinearLayout row = (LinearLayout) itemLayout.findViewById( R.id.statementLayout );
-			row.setBackgroundColor( Color.argb( 140 , 0 , 0 , 140 ) );
-		}
-		
-		return itemLayout;
-	}
-	
-	
-	public static void changeSelected( int pos )
-	{
-		if( StatementAdapter.selected.contains( pos ) )
-		{
-			StatementAdapter.selected.remove( (Integer) pos );
-		}
-		else
-		{
-			StatementAdapter.selected.add( (Integer) pos );
-		}
-	}
-	
-	
-	public static boolean isSelected( int pos )
-	{
-		if( StatementAdapter.selected.contains( pos ) )
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-	
+  /**
+   * @param position line index
+   * @param recycled ignored
+   * @param parent statement
+   * @return row
+   */
+  @Override
+  public View getView(
+      final int position, // .
+      final View recycled, // .
+      final ViewGroup parent) {
+    final String[] statement = this.account.getStatement().get(position);
+    final LinearLayout itemLayout =
+        (LinearLayout)
+            LayoutInflater.from(this.context)
+                .inflate(
+                    R.layout.statementlist, // .
+                    parent, // .
+                    false);
+    final int layoutId = R.id.statementLayout;
+    final LinearLayout row = (LinearLayout) itemLayout.findViewById(layoutId);
+    label(itemLayout, R.id.transactionName1, statement[0]);
+    label(itemLayout, R.id.transactionName2, statement[1]);
+    this.paintAmount(
+        itemLayout,
+        row,
+        R.id.transactionName3,
+        R.id.debitRow,
+        statement[DEBIT],
+        RowSelection.TINT,
+        0);
+    this.paintAmount(
+        itemLayout,
+        row,
+        R.id.transactionName4,
+        R.id.creditRow,
+        statement[CREDIT],
+        0,
+        RowSelection.TINT);
+    label(itemLayout, R.id.transactionName5, "€" + statement[BALANCE]);
+    if (statement[BALANCE].length() < MIN_AMOUNT) {
+      row.removeView(itemLayout.findViewById(R.id.balanceRow));
+    }
+    if (selected.contains(position)) {
+      row.setBackgroundColor(
+          Color.argb(
+              RowSelection.TINT, // .
+              0, // .
+              0, // .
+              RowSelection.TINT));
+    }
+    return itemLayout;
+  }
+
+  private void paintAmount(
+      final View itemLayout,
+      final LinearLayout row,
+      final int valueId,
+      final int lineId,
+      final String amount,
+      final int red,
+      final int green) {
+    ((TextView) itemLayout.findViewById(valueId)).setText("€" + amount);
+    if (amount.length() < MIN_AMOUNT) {
+      row.removeView(itemLayout.findViewById(lineId));
+    } else {
+      row.setBackgroundColor(Color.argb(RowSelection.TINT, red, green, 0));
+    }
+  }
 }
