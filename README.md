@@ -1,5 +1,9 @@
 # AIB Android App
 
+<p align="center">
+  <img src=".github/logo.png" alt="aib-android-app logo" width="128" />
+</p>
+
 An unofficial Android app for viewing Allied Irish Banks (AIB) internet
 banking accounts.
 
